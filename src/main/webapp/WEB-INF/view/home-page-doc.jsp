@@ -22,6 +22,7 @@
         <nav style="display:flex;justify-content:center;">
             <div style="width:60%">
         		<h1>DocSched</h1>
+           		<p>For Doctors</p>
         	</div>
             <div style="display:grid; width:40%;">
                 <form action="login.htm" method="POST">
@@ -31,30 +32,32 @@
 	                <input type="password" name="password" required/>
 	                <input type="submit" value="Login" />
                 </form>
-		        <a href="doctor">Are you a Doctor?</a>
+		        <a href="/docsched">Are you a Patient?</a>
             </div>    
         </nav>
-        <form:form action="signup" method="POST" modelAttribute="patient">
+        <form:form action="doctor/signup" method="POST" modelAttribute="doctor">
 	        <div class="login-card">
 	        	<div>
 	        		First Name:* <br /> <br />
 	        		Last Name:* <br /> <br />
 	        		Email:* <br /> <br />
 	        		Password:* <br /> <br />
-	        		Date of Birth:* <br /> <br />
-	        		Sex: <br /> <br />
+	        		Practice Name: <br /> <br />
+	        		Specialty: <br /> <br />
+	        		Phone Number: <br /> <br />
+	        		Zip Code: <br /> <br />
 	        	</div>
 	        	<div>
 	        		<form:input path="first_name" required="true" /> <br /> <br />	            
 		            <form:input path="last_name" required="true" /> <br /> <br />		            
 		            <form:input type="email" path="email_address" required="true" /> <br /> <br />		            
 		            <form:input type="password" path="password" required="true" /> <br /> <br />		            	            
-		            <form:input type="date" path="dob" required="true" /> <br /> <br />
-		            Male<form:radiobutton path="sex" value="Male"/>  
-        			Female<form:radiobutton path="sex" value="Female" />  
+		            <form:input path="practice_name" required="true" /> <br /> <br />
+		            <form:input path="specialty" required="true" /> <br /> <br />
+		            <form:input path="phone_number" required="true" /> <br /> <br />
+		            <form:input path="zip_code" required="true" /> <br /> <br />
 		            <input type="submit" value="Register"/>
 	        	</div>
-	            
 	        </div>
         </form:form>
     </body>
