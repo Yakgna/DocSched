@@ -7,10 +7,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name =  "doctor", uniqueConstraints = @UniqueConstraint(columnNames = "email_address"))
-public class Doctor extends User{
-	
-	private String email_address;	
+@Table(name =  "doctor")
+public class Doctor extends User{	
     private String practice_name;
     private String specialty;
     private String phone_number;
@@ -19,15 +17,6 @@ public class Doctor extends User{
     // Constructors
     public Doctor() {
     }
-    
-    
-	public String getEmail_address() {
-		return email_address;
-	}
-	
-	public void setEmail_address(String email_address) {
-		this.email_address = email_address;
-	}
 	
 	public String getPractice_name() {
 		return practice_name;

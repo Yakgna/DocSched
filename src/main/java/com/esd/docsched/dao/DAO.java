@@ -7,6 +7,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Environment;
 
+import com.esd.docsched.pojo.Appointment;
 import com.esd.docsched.pojo.Doctor;
 import com.esd.docsched.pojo.Patient;
 import com.esd.docsched.pojo.User;
@@ -30,6 +31,7 @@ public class DAO {
                 MetadataSources metadataSources = new MetadataSources(serviceRegistry);
                 metadataSources.addAnnotatedClass(Patient.class);
                 metadataSources.addAnnotatedClass(Doctor.class);
+                metadataSources.addAnnotatedClass(Appointment.class);
                 
 
                 Metadata metadata = metadataSources.getMetadataBuilder().build();

@@ -16,41 +16,33 @@ import com.esd.docsched.pojo.Patient;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @SpringBootApplication(scanBasePackages = {"com.esd.docsched.controller"})
 @Controller
-@RequestMapping("/docsched")
 public class DocSchedApplication {
 	
-	@GetMapping("")
+	@GetMapping("/")
 	public String homePage(@ModelAttribute("patient") Patient patient , HttpServletRequest request) {
-        return "home-page";
+		String viewName = "error";
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			viewName = "home-page";
+		} else {
+			String action = request.getParameter("action");
+			
+			if (action == null) {
+				viewName = "dashboard";
+			} else if (action.equals("logout")) {
+				System.out.println(action);
+				viewName = "home-page";
+				session.invalidate();
+				System.out.println(action + "1");
+				System.out.println(session.toString());
+			}
+		}
+        return viewName;
 	}
-	
-	@PostMapping("/signup")
-	public String patientSignUp(@ModelAttribute("patient") Patient patient, UserDao userDao) {
-		try {
-    		userDao.save(patient);
-    	} catch (HibernateException e) {
-    		return "error";
-    	}
-    	return "sign-up";
-	}
-	
-	@GetMapping("/doctor")
-	public String doctorPage(@ModelAttribute("doctor") Doctor doctor) {
-        return "home-page-doc";
-    }
-	
-	@PostMapping("/doctor/signup")
-	public String doctorSignUp(@ModelAttribute("doctor") Doctor doctor, UserDao userDao) {
-		try {
-    		userDao.save(doctor);
-    	} catch (HibernateException e) {
-    		return "error";
-    	}
-    	return "sign-up";
-    } 
 	
 	public static void main(String[] args) {
 		SpringApplication.run(DocSchedApplication.class, args);

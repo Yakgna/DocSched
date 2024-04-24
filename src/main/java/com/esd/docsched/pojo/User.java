@@ -11,6 +11,7 @@ import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email_address"))
 public abstract class User {
 	@Id
 	@GeneratedValue
@@ -18,6 +19,7 @@ public abstract class User {
 	private String first_name;	
 	private String last_name;
 	private String password;
+	private String email_address;
 	
 	public Long getId() {
 		return id;
@@ -43,5 +45,10 @@ public abstract class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+	public String getEmail_address() {
+		return email_address;
+	}
+	public void setEmail_address(String email_address) {
+		this.email_address = email_address;
+	}
 }

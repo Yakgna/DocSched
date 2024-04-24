@@ -7,21 +7,12 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name =  "patient", uniqueConstraints = @UniqueConstraint(columnNames = "email_address"))
+@Table(name =  "patient")
 public class Patient extends User {
-	private String email_address;
 	private String dob;
 	private String sex;
 	
 	public Patient() {
-	}
-	
-	public String getEmail_address() {
-		return email_address;
-	}
-
-	public void setEmail_address(String email_address) {
-		this.email_address = email_address;
 	}
 
 	public String getDob() {
