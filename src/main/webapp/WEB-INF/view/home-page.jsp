@@ -36,14 +36,17 @@
             </div>    
         </header>
         <form:form action="signup" method="POST" modelAttribute="patient">
+        	<form:errors path="*"></form:errors>
         	<div style='text-align:center;'>
 	        	<div class="form-group">
 					<label for="first_name">First Name*</label>
 				    <form:input class="form-control" id="first_name" path="first_name" required="true" style='width: 350px; margin:auto'/>
+				    <form:errors path="first_name"></form:errors>
 	        	</div>
 	        	<div class="form-group">
 					<label for="last_name">Last Name*</label>
 				    <form:input class="form-control" id="last_name" path="last_name" required="true" style='width: 350px; margin:auto'/>
+				    <form:errors path="last_name"></form:errors>
 	        	</div>
 	        	<div class="form-group">
 					<label for="email_address">Email:*</label>
@@ -52,6 +55,7 @@
 	        	<div class="form-group">
 					<label for="password">Password:*</label>
 				    <form:input type="password" class="form-control" id="password" path="password" required="true" style='width: 350px; margin:auto'/>
+				    <form:errors path="password"></form:errors>
 	        	</div>
 	        	<div class="form-group">
 					<label for="dob">Date of Birth:*</label>

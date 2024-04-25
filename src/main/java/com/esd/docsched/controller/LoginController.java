@@ -10,6 +10,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import com.esd.docsched.pojo.Patient;
 import com.esd.docsched.pojo.User;
 import com.esd.docsched.utils.Role;
 import com.esd.docsched.utils.SessionUtil;
+import com.esd.docsched.validator.UserValidator;
 
 @Controller
 public class LoginController {
@@ -30,6 +32,9 @@ public class LoginController {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	UserValidator validator;
 	
     @PostMapping("/login")
     public ModelAndView authLogin(HttpServletRequest request) {
@@ -71,7 +76,12 @@ public class LoginController {
     }
     
     @PostMapping("/signup")
-	public String patientSignUp(@ModelAttribute("patient") Patient patient) {
+	public String patientSignUp(@ModelAttribute("patient") Patient patient, BindingResult results) {
+    	
+    	validator.validate(patient, results);
+        if (results.hasErrors()) {
+            return "home-page";
+        }
 		try {
 			patient.setPassword(passwordEncoder.encode(patient.getPassword()));
     		userDao.save(patient);

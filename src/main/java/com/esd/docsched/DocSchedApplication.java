@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@SpringBootApplication(scanBasePackages = {"com.esd.docsched.controller", "com.esd.docsched.dao", "com.esd.docsched.config"})
+@SpringBootApplication(scanBasePackages = {"com.esd.docsched.controller", "com.esd.docsched.dao", "com.esd.docsched.config", "com.esd.docsched.validator"})
 @Controller
 public class DocSchedApplication {
 	
@@ -34,11 +34,8 @@ public class DocSchedApplication {
 			if (action == null) {
 				viewName = "redirect:dashboard";
 			} else if (action.equals("logout")) {
-				System.out.println(action);
 				viewName = "home-page";
 				session.invalidate();
-				System.out.println(action + "1");
-				System.out.println(session.toString());
 			}
 		}
         return viewName;
