@@ -8,8 +8,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "appointments")
@@ -19,15 +24,18 @@ public class Appointment {
     private Long id;
     
     @Column(name = "appointment_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime appointmentDate;
     
     @Column(name = "symptoms")
     private String symptoms;
     
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
     private Patient patient;
     
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
     private Doctor doctor;
     
 	public Appointment() {

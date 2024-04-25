@@ -35,10 +35,11 @@ public class LoginController {
     	
     	User user;
     	if (request.getParameter("doctor") == null) {
+    		role = Role.PATIENT.getLabel();
     		user = userDao.getPatient(username);
     		viewName = "dashboard";
     	} else {
-    		role = "doctor";
+    		role = Role.DOCTOR.getLabel();
     		user = userDao.getDoctor(username);
     		viewName = "doctor/dashboard";
     	}
@@ -72,8 +73,12 @@ public class LoginController {
 	}
 	
 	@GetMapping("/doctor")
-	public String doctorPage(@ModelAttribute("doctor") Doctor doctor, HttpServletRequest request) {
-        return "home-page-doc";
+	public ModelAndView doctorPage(@ModelAttribute("doctor") Doctor doctor, HttpServletRequest request) {
+		String viewName = "error";
+		HttpSession session = request.getSession(false);
+		viewName = "home-page-doc";
+		ModelAndView mv = new ModelAndView(viewName);
+        return mv;
     }
 	
 	@PostMapping("/doctor/signup")

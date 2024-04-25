@@ -32,7 +32,7 @@ public class DocSchedApplication {
 			String action = request.getParameter("action");
 			
 			if (action == null) {
-				viewName = "dashboard";
+				viewName = "redirect:dashboard";
 			} else if (action.equals("logout")) {
 				System.out.println(action);
 				viewName = "home-page";

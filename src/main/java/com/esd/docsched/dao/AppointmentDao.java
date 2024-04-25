@@ -22,11 +22,11 @@ public class AppointmentDao {
     }
 	
 
-	public List<Appointment> getAppointments(Long id) throws HibernateException {
+	public List<Appointment> getAppointments(Long id, String role) throws HibernateException {
 		Session session = DAO.getSessionFactory().openSession();
 		session.beginTransaction();
 		
-		Query q = session.createQuery("FROM Appointment WHERE patient.id=" + id, Appointment.class);
+		Query q = session.createQuery("FROM Appointment WHERE " + role + ".id=" + id, Appointment.class);
 		List<Appointment> list = q.list();
 		
 		return list;

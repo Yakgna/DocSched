@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import com.esd.docsched.pojo.Appointment;
 import com.esd.docsched.pojo.Doctor;
 import com.esd.docsched.pojo.Patient;
 import com.esd.docsched.pojo.User;
+import com.esd.docsched.utils.Role;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -43,20 +45,27 @@ public class DashboardController {
 		}
 		
 		User user = (User) session.getAttribute("user");
-		List<Appointment> appointments = appointmentDao.getAppointments(user.getId());
+		List<Appointment> appointments = appointmentDao.getAppointments(user.getId(), "patient");
 		mv.addObject("appointments", appointments);
         return mv;
     }
 	
 	@GetMapping("/doctor/dashboard")
-	public ModelAndView doctorDashboard(HttpServletRequest request) {
+	public ModelAndView doctorDashboard(HttpServletRequest request, AppointmentDao appointmentDao) {
 		ModelAndView mv = new ModelAndView();
-		if (request.getSession(false) == null) {
+		HttpSession session = request.getSession(false); 
+		if (session == null) {
 			mv.setViewName("error");
 			return mv;
-		}
+		} else if (!session.getAttribute("role").equals(Role.DOCTOR.getLabel())) {
+				mv.setViewName("error");
+				return mv;
+			}
 		
-		mv.setViewName("appointments");
+		User user = (User) session.getAttribute("user");
+		List<Appointment> appointments = appointmentDao.getAppointments(user.getId(), "doctor");
+		mv.addObject("appointments", appointments);
+		mv.setViewName("dashboard-doc");
         return mv;
 	}
 	
@@ -70,7 +79,7 @@ public class DashboardController {
 		}
 		
 		String docId = request.getParameter("doctor");
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 		LocalDateTime appointmentDate = LocalDateTime.now();
 		try {
 			appointmentDate = LocalDateTime.parse(request.getParameter("appointmentdate"), formatter);
@@ -87,7 +96,7 @@ public class DashboardController {
 		
 		appointmentDao.save(new Appointment(appointmentDate, symptoms, patient, doctor));
 		
-		mv.setViewName("book-appointment");
+		mv.setViewName("redirect:dashboard");
 		return mv;	
 	}
 	

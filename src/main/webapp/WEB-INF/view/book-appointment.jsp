@@ -10,18 +10,20 @@
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     </head>
     <body>
-        <header>
-        	<div>
-				<h1>DocSched</h1>
-				<a href="/?action=logout">Logout</a>
+        <header class='navbar navbar-expand-lg navbar-light bg-light'>
+            <div style="width:60%">
+        		<h1>DocSched</h1>
         	</div>
-	      <div style='display: flex; gap: 30px; width: 400px;'>
+            <div class='form-inline my-2 my-lg-0'>
+                <a href="/?action=logout">Logout</a>
+            </div> 
+        </header>
+        <div style='display: flex; gap: 30px; width: 400px;'>
 	          <a href='?dashboard=appointments'>Appointments</a>
 	          <a href='?dashboard=book'>Book Appointments</a>
-	      </div>  
-        </header>
+	    </div> 
 		<div>
-			<form method='POST' action=''>
+			<form method='POST' action='?dashboard=appointments'>
 				<label for='doctor'>Select the Doctor you want to consult: </label>
 				<select name="doctor" id="doctor">
 					<c:forEach items='${doctors}' var='doc'>

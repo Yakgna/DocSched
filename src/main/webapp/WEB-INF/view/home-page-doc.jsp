@@ -37,31 +37,41 @@
 		        <a href="/">Are you a Patient?</a>
             </div>    
         </header>
-        <form:form action="doctor/signup" method="POST" modelAttribute="doctor">
-	        <div class="login-card">
-	        	<div>
-	        		First Name:* <br /> <br />
-	        		Last Name:* <br /> <br />
-	        		Email:* <br /> <br />
-	        		Password:* <br /> <br />
-	        		Practice Name: <br /> <br />
-	        		Specialty: <br /> <br />
-	        		Phone Number: <br /> <br />
-	        		Zip Code: <br /> <br />
+        <div>
+        	<form:form action="doctor/signup" method="POST" modelAttribute="doctor">
+	        <div style='text-align:center;'>
+	        	<div class="form-group">
+					<label for="first_name">First Name*</label>
+				    <form:input class="form-control" id="first_name" path="first_name" required="true" style='width: 350px; margin:auto'/>
 	        	</div>
-	        	<div>
-	        		<form:input path="first_name" required="true" /> <br /> <br />	            
-		            <form:input path="last_name" required="true" /> <br /> <br />		            
-		            <form:input type="email" path="email_address" required="true" /> <br /> <br />		            
-		            <form:input type="password" path="password" required="true" /> <br /> <br />		            	            
-		            <form:input path="practice_name" required="true" /> <br /> <br />
-		            <form:input path="specialty" required="true" /> <br /> <br />
-		            <form:input path="phone_number" required="true" /> <br /> <br />
-		            <form:input path="zip_code" required="true" /> <br /> <br />
-		            <input type="submit" value="Register"/>
+	        	<div class="form-group">
+					<label for="last_name">Last Name*</label>
+				    <form:input class="form-control" id="last_name" path="last_name" required="true" style='width: 350px; margin:auto'/>
 	        	</div>
+	        	<div class="form-group">
+					<label for="email_address">Email:*</label>
+				    <form:input type="email" class="form-control" id="email_address" path="email_address" required="true" style='width: 350px; margin:auto'/>
+	        	</div>
+	        	<div class="form-group">
+					<label for="password">Password:*</label>
+				    <form:input type="password" class="form-control" id="password" path="password" required="true" style='width: 350px; margin:auto'/>
+	        	</div>
+	        	<div class="form-group">
+					<label for="specialization">Specialization:*</label>
+				    <form:input class="form-control" id="specialization" path="specialization" required="true" style='width: 350px; margin:auto'/>
+	        	</div>
+	        	<div class="form-group">
+					<label for="phone_number">Phone Number:*</label>
+				    <form:input class="form-control" id="phone_number" path="phone_number" required="true" style='width: 350px; margin:auto'/>
+	        	</div>
+	        	<div class="form-group">
+					<label for="zip_code">Zip Code:*</label>
+				    <form:input class="form-control" id="zip_code" path="zip_code" required="true" style='width: 350px; margin:auto'/>
+	        	</div>
+	        	<input type="submit" value="Register"/>
 	        </div>
         </form:form>
+        </div>
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

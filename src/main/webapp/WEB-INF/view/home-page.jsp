@@ -36,25 +36,33 @@
             </div>    
         </header>
         <form:form action="signup" method="POST" modelAttribute="patient">
-	        <div class="login-card">
-	        	<div>
-	        		First Name:* <br /> <br />
-	        		Last Name:* <br /> <br />
-	        		Email:* <br /> <br />
-	        		Password:* <br /> <br />
-	        		Date of Birth:* <br /> <br />
-	        		Sex: <br /> <br />
+        	<div style='text-align:center;'>
+	        	<div class="form-group">
+					<label for="first_name">First Name*</label>
+				    <form:input class="form-control" id="first_name" path="first_name" required="true" style='width: 350px; margin:auto'/>
 	        	</div>
-	        	<div>
-	        		<form:input path="first_name" required="true" /> <br /> <br />	            
-		            <form:input path="last_name" required="true" /> <br /> <br />		            
-		            <form:input type="email" path="email_address" required="true" /> <br /> <br />		            
-		            <form:input type="password" path="password" required="true" /> <br /> <br />		            	            
-		            <form:input type="date" path="dob" required="true" /> <br /> <br />
-		            Male<form:radiobutton path="sex" value="Male"/>  
-        			Female<form:radiobutton path="sex" value="Female" />  
-		            <input type="submit" value="Register"/>
-	        	</div>            
+	        	<div class="form-group">
+					<label for="last_name">Last Name*</label>
+				    <form:input class="form-control" id="last_name" path="last_name" required="true" style='width: 350px; margin:auto'/>
+	        	</div>
+	        	<div class="form-group">
+					<label for="email_address">Email:*</label>
+				    <form:input type="email" class="form-control" id="email_address" path="email_address" required="true" style='width: 350px; margin:auto'/>
+	        	</div>
+	        	<div class="form-group">
+					<label for="password">Password:*</label>
+				    <form:input type="password" class="form-control" id="password" path="password" required="true" style='width: 350px; margin:auto'/>
+	        	</div>
+	        	<div class="form-group">
+					<label for="dob">Date of Birth:*</label>
+				    <form:input type="date" class="form-control" id="dob" path="dob" required="true" style='width: 350px; margin:auto'/>
+	        	</div>
+	        	<div class="form-group" style='display:flex;margin:auto;width:fit-content;gap:10px'>
+					<label>Sex:*</label>
+					Male <form:radiobutton id="sex" path="sex" value="Male" />  
+        			Female <form:radiobutton id="sex" path="sex" value="Female" /> 
+	        	</div>
+	        	<input type="submit" value="Register"/>
 	        </div>
         </form:form>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

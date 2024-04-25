@@ -17,10 +17,6 @@
                 <a href="/?action=logout">Logout</a>
             </div> 
         </header>
-        <div style='display: flex; gap: 30px; width: 400px;'>
-	          <a href='?dashboard=appointments'>Appointments</a>
-	          <a href='?dashboard=book'>Book Appointments</a>
-	    </div> 
 		<div>
 			<table class="table">
 		        <tr>
@@ -32,7 +28,7 @@
 		        	<tr>
 		        		<td>${appointment.appointmentDate}</td>
 		        		<td>${appointment.symptoms}</td>
-		        		<td>${appointment.doctor.first_name} ${appointment.doctor.last_name}</td>
+		        		<td>${appointment.patient.first_name} ${appointment.patient.last_name}</td>
 		        	</tr>
 		        </c:forEach>
 	        </table>

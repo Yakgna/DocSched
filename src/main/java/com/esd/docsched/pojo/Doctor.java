@@ -1,37 +1,34 @@
 package com.esd.docsched.pojo;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(name =  "doctor")
-public class Doctor extends User{	
-    private String practice_name;
-    private String specialty;
+public class Doctor extends User{
+    private String specialization;
     private String phone_number;
     private String zip_code;
+    @OneToMany(mappedBy = "doctor")
+    private List<Appointment> appointment;
 
     // Constructors
     public Doctor() {
     }
-	
-	public String getPractice_name() {
-		return practice_name;
+
+	public String getSpecialization() {
+		return specialization;
 	}
 
-	public void setPractice_name(String practice_name) {
-		this.practice_name = practice_name;
-	}
-
-	public String getSpecialty() {
-		return specialty;
-	}
-
-	public void setSpecialty(String specialty) {
-		this.specialty = specialty;
+	public void setSpecialization(String specialization) {
+		this.specialization = specialization;
 	}
 
 	public String getPhone_number() {
@@ -48,5 +45,13 @@ public class Doctor extends User{
 
 	public void setZip_code(String zip_code) {
 		this.zip_code = zip_code;
+	}
+
+	public List<Appointment> getAppointment() {
+		return appointment;
+	}
+
+	public void setAppointment(List<Appointment> appointment) {
+		this.appointment = appointment;
 	}
 }
