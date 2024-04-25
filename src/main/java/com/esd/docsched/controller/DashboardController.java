@@ -27,8 +27,14 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class DashboardController {
 	
+	@Autowired
+	AppointmentDao appointmentDao;
+	
+	@Autowired
+	UserDao userDao;
+	
 	@GetMapping("/dashboard")
-    public ModelAndView patientDashboard(HttpServletRequest request, AppointmentDao appointmentDao, UserDao userDao) {
+    public ModelAndView patientDashboard(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		HttpSession session = request.getSession(false); 
 		if (session == null) {
@@ -50,8 +56,8 @@ public class DashboardController {
         return mv;
     }
 	
-	@GetMapping("/doctor/dashboard")
-	public ModelAndView doctorDashboard(HttpServletRequest request, AppointmentDao appointmentDao) {
+	@GetMapping("/dashboard/doctor")
+	public ModelAndView doctorDashboard(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		HttpSession session = request.getSession(false); 
 		if (session == null) {
@@ -70,7 +76,7 @@ public class DashboardController {
 	}
 	
 	@PostMapping("/dashboard")
-	public ModelAndView bookAppointment(HttpServletRequest request,  AppointmentDao appointmentDao, UserDao userDao) {
+	public ModelAndView bookAppointment(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		HttpSession session = request.getSession(false);
 		if (session == null) {

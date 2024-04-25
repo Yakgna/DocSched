@@ -24,15 +24,22 @@
 		<div>
 			<table class="table">
 		        <tr>
-		            <th>Date</th>
+		            <th>Appointment Date</th>
 		            <th>Symptoms</th>
 		            <th>Doctor Name</th>
+		            <th>Cancel</th>
 		        </tr>
 		        <c:forEach items='${appointments}' var='appointment'>
 		        	<tr>
 		        		<td>${appointment.appointmentDate}</td>
 		        		<td>${appointment.symptoms}</td>
 		        		<td>${appointment.doctor.first_name} ${appointment.doctor.last_name}</td>
+		        		<td>
+		        			<form>
+		        				<button>Cancel</button>
+		        				<input type='hidden' name='status' value='cancelled'/> 
+		        			</form>
+	        			</td>
 		        	</tr>
 		        </c:forEach>
 	        </table>

@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@SpringBootApplication(scanBasePackages = {"com.esd.docsched.controller"})
+@SpringBootApplication(scanBasePackages = {"com.esd.docsched.controller", "com.esd.docsched.dao", "com.esd.docsched.config"})
 @Controller
 public class DocSchedApplication {
 	

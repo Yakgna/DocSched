@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,13 +24,16 @@ import com.esd.docsched.utils.Role;
 @Controller
 public class LoginController {
 	
+	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
+	@Autowired
+	private UserDao userDao;
+	
     @PostMapping("/login")
-    public ModelAndView authLogin(HttpServletRequest request, UserDao userDao) {
+    public ModelAndView authLogin(HttpServletRequest request) {
     	String username = request.getParameter("username");
     	String password = request.getParameter("password");
-    	passwordEncoder = new BCryptPasswordEncoder();
     	String role = "patient";
     	String viewName = "";
     	
@@ -60,9 +64,8 @@ public class LoginController {
     }
     
     @PostMapping("/signup")
-	public String patientSignUp(@ModelAttribute("patient") Patient patient, UserDao userDao) {
+	public String patientSignUp(@ModelAttribute("patient") Patient patient) {
 		try {
-			passwordEncoder = new BCryptPasswordEncoder();
 			patient.setPassword(passwordEncoder.encode(patient.getPassword()));
     		userDao.save(patient);
     	} catch (HibernateException e) {
@@ -82,9 +85,8 @@ public class LoginController {
     }
 	
 	@PostMapping("/doctor/signup")
-	public String doctorSignUp(@ModelAttribute("doctor") Doctor doctor, UserDao userDao) {
+	public String doctorSignUp(@ModelAttribute("doctor") Doctor doctor) {
 		try {
-			passwordEncoder = new BCryptPasswordEncoder();
 			doctor.setPassword(passwordEncoder.encode(doctor.getPassword()));
     		userDao.save(doctor);
     	} catch (HibernateException e) {

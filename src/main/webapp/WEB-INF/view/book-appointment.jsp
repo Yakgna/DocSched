@@ -24,17 +24,25 @@
 	    </div> 
 		<div>
 			<form method='POST' action='?dashboard=appointments'>
-				<label for='doctor'>Select the Doctor you want to consult: </label>
-				<select name="doctor" id="doctor">
-					<c:forEach items='${doctors}' var='doc'>
-						<option value='${doc.email_address}'>${doc.first_name} ${doc.last_name}</option>
-	        		</c:forEach>
-        		</select> <br/><br/>
-        		<label for="appointmentdate">Appointment Date and Time:</label>
-    			<input type="datetime-local" id="appointmentdate" name="appointmentdate"/> <br/><br/>
-    			<label for="symptoms">Symptoms:</label>
-    			<textarea id="symptoms" name="symptoms" rows="5" cols="50" placeholder="Write your symptoms here..."></textarea> <br/><br/>
-    			<input type="submit" value="Book Appointment" />
+				<div style='text-align:center;'>
+					<div class="form-group">
+					<label for='doctor'>Select the Doctor you want to consult: </label>
+					<select class="form-control" name="doctor" id="doctor" style='width: 350px; margin:auto'>
+						<c:forEach items='${doctors}' var='doc'>
+							<option value='${doc.email_address}'>${doc.first_name} ${doc.last_name}</option>
+		        		</c:forEach>
+	        		</select>
+		        	</div>
+		        	<div class="form-group">
+						<label for="appointmentdate">Appointment Date and Time:</label>
+	    				<input class="form-control" type="datetime-local" id="appointmentdate" name="appointmentdate" style='width: 350px; margin:auto' required/>
+		        	</div>
+		        	<div class="form-group">
+						<label for="symptoms">Symptoms:</label>
+	    				<textarea class="form-control" id="symptoms" name="symptoms" rows="5" cols="50" placeholder="Write your symptoms here..." style='width: 350px; margin:auto' required></textarea>
+		        	</div>
+	    			<input type="submit" value="Book Appointment" />
+				</div>
 			</form>
 		</div>
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

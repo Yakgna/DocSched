@@ -20,7 +20,7 @@ import jakarta.persistence.TemporalType;
 @Table(name = "appointments")
 public class Appointment {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
     
     @Column(name = "appointment_date", nullable = false)
