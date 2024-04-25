@@ -2,6 +2,7 @@ package com.esd.docsched.pojo;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -16,7 +17,7 @@ public class Doctor extends User{
     private String specialization;
     private String phone_number;
     private String zip_code;
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Appointment> appointment;
 
     // Constructors

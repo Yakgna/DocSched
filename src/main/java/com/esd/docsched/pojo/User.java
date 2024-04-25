@@ -21,6 +21,22 @@ public abstract class User {
 	private String password;
 	private String email_address;
 	
+	
+	
+	public User() {
+	}
+	
+	
+	
+	public User(String first_name, String last_name, String password, String email_address) {
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.password = password;
+		this.email_address = email_address;
+	}
+
+
+
 	public Long getId() {
 		return id;
 	}

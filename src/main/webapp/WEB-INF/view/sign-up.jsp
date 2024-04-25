@@ -17,7 +17,12 @@
         <title>DocSched</title>
     </head>
     <body>
-        <h1>DocSched</h1>
+        y>
+        <header class='navbar navbar-expand-lg navbar-light bg-light'>
+            <div style="width:60%">
+        		<h1>DocSched</h1>
+        	</div>
+        </header>
         <p>Success</p>
         <a href="/">Back to Login Page</a>
     </body>

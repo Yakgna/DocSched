@@ -3,6 +3,7 @@ package com.esd.docsched.pojo;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +31,9 @@ public class Appointment {
     @Column(name = "symptoms")
     private String symptoms;
     
+    @Column(name = "status")
+    private String status;
+    
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
@@ -41,9 +45,10 @@ public class Appointment {
 	public Appointment() {
 	}
 
-	public Appointment(LocalDateTime appointmentDate, String symptoms, Patient patient, Doctor doctor) {
+	public Appointment(LocalDateTime appointmentDate, String symptoms, String status, Patient patient, Doctor doctor) {
 		this.appointmentDate = appointmentDate;
 		this.symptoms = symptoms;
+		this.status = status;
 		this.patient = patient;
 		this.doctor = doctor;
 	}
@@ -70,6 +75,14 @@ public class Appointment {
 
 	public void setSymptoms(String symptoms) {
 		this.symptoms = symptoms;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public Patient getPatient() {

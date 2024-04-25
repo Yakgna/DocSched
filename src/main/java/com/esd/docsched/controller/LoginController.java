@@ -20,6 +20,7 @@ import com.esd.docsched.pojo.Doctor;
 import com.esd.docsched.pojo.Patient;
 import com.esd.docsched.pojo.User;
 import com.esd.docsched.utils.Role;
+import com.esd.docsched.utils.SessionUtil;
 
 @Controller
 public class LoginController {
@@ -34,29 +35,35 @@ public class LoginController {
     public ModelAndView authLogin(HttpServletRequest request) {
     	String username = request.getParameter("username");
     	String password = request.getParameter("password");
-    	String role = "patient";
+    	Role role;
     	String viewName = "";
     	
     	User user;
-    	if (request.getParameter("doctor") == null) {
-    		role = Role.PATIENT.getLabel();
+    	if (username.equals("admin")) {
+    		role=Role.ADMIN;
+    		user = userDao.getPatient(username);
+    		viewName = "adminpage";
+    	} 
+    	else if (request.getParameter("doctor") == null) {
+    		role = Role.PATIENT;
     		user = userDao.getPatient(username);
     		viewName = "dashboard";
-    	} else {
-    		role = Role.DOCTOR.getLabel();
+    	} 
+    	else {
+    		role = Role.DOCTOR;
     		user = userDao.getDoctor(username);
     		viewName = "doctor/dashboard";
     	}
     	
     	if (user == null) {
-    		return new ModelAndView("username-not-found");
+    		System.out.println("Null user");
+    		ModelAndView mv = new ModelAndView("error");
+    		mv.addObject("errortype", "invalidlogin");
+    		return mv;
     	} else {
     		String pass = user.getPassword();
-    		System.out.println(pass);
     		if (passwordEncoder.matches(password, pass)) {
-    			HttpSession session = request.getSession();
-    			session.setAttribute("user", user);
-    			session.setAttribute("role", role);
+    			SessionUtil.createSession(user, role, request);
     			return new ModelAndView("redirect:"+viewName);
     		}
     	}
@@ -77,10 +84,7 @@ public class LoginController {
 	
 	@GetMapping("/doctor")
 	public ModelAndView doctorPage(@ModelAttribute("doctor") Doctor doctor, HttpServletRequest request) {
-		String viewName = "error";
-		HttpSession session = request.getSession(false);
-		viewName = "home-page-doc";
-		ModelAndView mv = new ModelAndView(viewName);
+		ModelAndView mv = new ModelAndView("home-page-doc");
         return mv;
     }
 	

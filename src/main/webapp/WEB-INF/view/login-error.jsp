@@ -6,6 +6,6 @@
     </head>
     <body>
 		Invalid Login! Please go back and try again.
-		<a href="/"></a>
+		<a href="/">Back to Login</a>
     </body>
 </html>

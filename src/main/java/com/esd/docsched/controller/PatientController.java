@@ -19,13 +19,15 @@ import com.esd.docsched.pojo.Appointment;
 import com.esd.docsched.pojo.Doctor;
 import com.esd.docsched.pojo.Patient;
 import com.esd.docsched.pojo.User;
+import com.esd.docsched.utils.AppointmentStatus;
 import com.esd.docsched.utils.Role;
+import com.esd.docsched.utils.SessionUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class DashboardController {
+public class PatientController {
 	
 	@Autowired
 	AppointmentDao appointmentDao;
@@ -35,9 +37,9 @@ public class DashboardController {
 	
 	@GetMapping("/dashboard")
     public ModelAndView patientDashboard(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView();
-		HttpSession session = request.getSession(false); 
-		if (session == null) {
+		ModelAndView mv = new ModelAndView(); 
+		if (SessionUtil.checkSessionActive(Role.PATIENT, request)) {
+			mv.addObject("errortype", "forbidden");
 			mv.setViewName("error");
 			return mv;
 		}
@@ -49,58 +51,45 @@ public class DashboardController {
 			mv.setViewName("book-appointment");
 			return mv;
 		}
-		
+		HttpSession session = SessionUtil.getSession(request);
 		User user = (User) session.getAttribute("user");
 		List<Appointment> appointments = appointmentDao.getAppointments(user.getId(), "patient");
 		mv.addObject("appointments", appointments);
         return mv;
     }
 	
-	@GetMapping("/dashboard/doctor")
-	public ModelAndView doctorDashboard(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView();
-		HttpSession session = request.getSession(false); 
-		if (session == null) {
-			mv.setViewName("error");
-			return mv;
-		} else if (!session.getAttribute("role").equals(Role.DOCTOR.getLabel())) {
-				mv.setViewName("error");
-				return mv;
-			}
-		
-		User user = (User) session.getAttribute("user");
-		List<Appointment> appointments = appointmentDao.getAppointments(user.getId(), "doctor");
-		mv.addObject("appointments", appointments);
-		mv.setViewName("dashboard-doc");
-        return mv;
-	}
-	
 	@PostMapping("/dashboard")
 	public ModelAndView bookAppointment(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
-		HttpSession session = request.getSession(false);
-		if (session == null) {
+		
+		if (SessionUtil.checkSessionActive(Role.PATIENT, request)) {
+			mv.addObject("errortype", "forbidden");
 			mv.setViewName("error");
 			return mv;
 		}
 		
-		String docId = request.getParameter("doctor");
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-		LocalDateTime appointmentDate = LocalDateTime.now();
-		try {
-			appointmentDate = LocalDateTime.parse(request.getParameter("appointmentdate"), formatter);
-		} catch (DateTimeParseException e) {
-			System.err.println(e);
+		if (request.getParameter("changestatus") != null && request.getParameter("changestatus").equals("cancelled")) {
+			appointmentDao.update(AppointmentStatus.CANCELLED.getLabel(), Long.parseLong(request.getParameter("appointmentid")));
+		} else {
+			String docId = request.getParameter("doctor");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+			LocalDateTime appointmentDate = LocalDateTime.now();
+			try {
+				appointmentDate = LocalDateTime.parse(request.getParameter("appointmentdate"), formatter);
+			} catch (DateTimeParseException e) {
+				System.err.println(e);
+			}
+			String symptoms = request.getParameter("symptoms");
+			
+			List<Doctor> doctorList = userDao.getDoctorList();
+			mv.addObject("doctors", doctorList);
+			
+			Doctor doctor = userDao.getDoctor(docId);
+			HttpSession session = SessionUtil.getSession(request);
+			Patient patient = (Patient) session.getAttribute("user");
+			
+			appointmentDao.save(new Appointment(appointmentDate, symptoms, AppointmentStatus.SCHEDULED.getLabel(), patient, doctor));
 		}
-		String symptoms = request.getParameter("symptoms");
-		
-		List<Doctor> doctorList = userDao.getDoctorList();
-		mv.addObject("doctors", doctorList);
-		
-		Doctor doctor = userDao.getDoctor(docId);
-		Patient patient = (Patient) session.getAttribute("user");
-		
-		appointmentDao.save(new Appointment(appointmentDate, symptoms, patient, doctor));
 		
 		mv.setViewName("redirect:dashboard");
 		return mv;	

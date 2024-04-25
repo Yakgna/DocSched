@@ -1,13 +1,12 @@
 package com.esd.docsched.utils;
 
-public enum Role {
-	DOCTOR("Doctor"),
-	PATIENT("Patient"),
-	ADMIN("Admin");
+public enum AppointmentStatus {
+	SCHEDULED("Scheduled"),
+	CANCELLED("Cancelled");
 	
 	public String label;
 	
-	Role(String label) {
+	AppointmentStatus(String label) {
 		this.label = label;
 	}
 	

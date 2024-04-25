@@ -22,12 +22,13 @@
 	          <a href='?dashboard=book'>Book Appointments</a>
 	    </div> 
 		<div>
+			<h1>Appointment History</h1>
 			<table class="table">
 		        <tr>
 		            <th>Appointment Date</th>
 		            <th>Symptoms</th>
 		            <th>Doctor Name</th>
-		            <th>Cancel</th>
+		            <th>Appointment Status</th>
 		        </tr>
 		        <c:forEach items='${appointments}' var='appointment'>
 		        	<tr>
@@ -35,10 +36,18 @@
 		        		<td>${appointment.symptoms}</td>
 		        		<td>${appointment.doctor.first_name} ${appointment.doctor.last_name}</td>
 		        		<td>
-		        			<form>
-		        				<button>Cancel</button>
-		        				<input type='hidden' name='status' value='cancelled'/> 
-		        			</form>
+		        			<c:choose>
+							    <c:when test="${appointment.status eq 'Cancelled'}">
+							    	${appointment.status}
+							    </c:when>
+							    <c:otherwise>
+							        <form method='POST'>
+				        				<button>Cancel</button>
+				        				<input type='hidden' name='changestatus' value='cancelled' />
+				        				<input type='hidden' name='appointmentid' value=${appointment.id} />
+				        			</form>
+							    </c:otherwise>
+							</c:choose>
 	        			</td>
 		        	</tr>
 		        </c:forEach>

@@ -12,23 +12,40 @@
     	<header class='navbar navbar-expand-lg navbar-light bg-light'>
             <div style="width:60%">
         		<h1>DocSched</h1>
+        		<p>For Doctors</p>
         	</div>
             <div class='form-inline my-2 my-lg-0'>
                 <a href="/?action=logout">Logout</a>
             </div> 
         </header>
 		<div>
+			<h1>Appointments</h1>
 			<table class="table">
 		        <tr>
 		            <th>Date</th>
 		            <th>Symptoms</th>
-		            <th>Doctor Name</th>
+		            <th>Patient Name</th>
+		            <th>Appointment Status</th>
 		        </tr>
 		        <c:forEach items='${appointments}' var='appointment'>
 		        	<tr>
 		        		<td>${appointment.appointmentDate}</td>
 		        		<td>${appointment.symptoms}</td>
 		        		<td>${appointment.patient.first_name} ${appointment.patient.last_name}</td>
+		        		<td>
+		        			<c:choose>
+							    <c:when test="${appointment.status eq 'Cancelled'}">
+							    	${appointment.status}
+							    </c:when>
+							    <c:otherwise>
+							        <form method='POST'>
+				        				<button>Cancel</button>
+				        				<input type='hidden' name='changestatus' value='cancelled' />
+				        				<input type='hidden' name='appointmentid' value=${appointment.id} />
+				        			</form>
+							    </c:otherwise>
+							</c:choose>
+	        			</td>
 		        	</tr>
 		        </c:forEach>
 	        </table>

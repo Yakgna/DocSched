@@ -19,6 +19,7 @@ public class AppointmentDao {
     	session.beginTransaction();
         session.persist(appointment);
         session.getTransaction().commit();
+        session.close();
     }
 	
 
@@ -29,6 +30,20 @@ public class AppointmentDao {
 		Query q = session.createQuery("FROM Appointment WHERE " + role + ".id=" + id, Appointment.class);
 		List<Appointment> list = q.list();
 		
+		session.close();
+		
 		return list;
+	}
+	
+	public void update(String status, Long id) throws HibernateException{
+		Session session = DAO.getSessionFactory().openSession();
+		session.beginTransaction();
+		Appointment appointment = session.get(Appointment.class, id);
+		if (appointment != null) {
+			appointment.setStatus(status);
+			session.merge(appointment);
+			session.getTransaction().commit();
+			session.close();
+		}
 	}
 }
