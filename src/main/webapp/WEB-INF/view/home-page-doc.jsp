@@ -34,7 +34,7 @@
 					<input type="hidden" name="doctor" value="doctor" required/>
 	                <input type="submit" value="Login" />
                 </form>
-		        <a href="/">Are you a Patient?</a>
+		        <a href="/">Patient Login</a>
             </div>    
         </header>
         <div>

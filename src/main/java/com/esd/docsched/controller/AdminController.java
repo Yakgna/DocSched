@@ -32,11 +32,11 @@ public class AdminController {
 	@GetMapping("/adminpage")
 	public ModelAndView getPatients(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView(); 
-		if (SessionUtil.checkSessionActive(Role.PATIENT, request)) {
-			mv.addObject("errortype", "forbidden");
-			mv.setViewName("error");
-			return mv;
-		}
+//		if (SessionUtil.checkSessionActive(Role.PATIENT, request)) {
+//			mv.addObject("errortype", "forbidden");
+//			mv.setViewName("error");
+//			return mv;
+//		}
 		
 		String tab = request.getParameter("dashboard");
 		
@@ -61,12 +61,12 @@ public class AdminController {
 	@PostMapping("/adminpage")
 	public ModelAndView changeTab(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView(); 
-		if (SessionUtil.checkSessionActive(Role.PATIENT, request)) {
-			mv.addObject("errortype", "forbidden");
-			mv.setViewName("error");
-			return mv;
-		}
-		
+//		if (SessionUtil.checkSessionActive(Role.PATIENT, request)) {
+//			mv.addObject("errortype", "forbidden");
+//			mv.setViewName("error");
+//			return mv;
+//		}
+//		
 		String id = request.getParameter("id");
 		String deleteUser = request.getParameter("deleteuser");
 		

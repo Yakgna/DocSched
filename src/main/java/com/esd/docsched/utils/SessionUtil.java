@@ -15,6 +15,7 @@ public class SessionUtil {
 		HttpSession session = request.getSession();
 		session.setAttribute("user", user);
 		session.setAttribute("role", role.getLabel());
+		System.out.println("Session created");
 	}
 	
 	public static HttpSession getSession(HttpServletRequest request) {

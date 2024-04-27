@@ -32,7 +32,7 @@
 	                <input type="password" name="password" required/>
 	                <input type="submit" value="Login" />
                 </form>
-		        <a href="doctor">Are you a Doctor?</a>
+		        <a href="doctor">Doctor Login</a>
             </div>    
         </header>
         <form:form action="signup" method="POST" modelAttribute="patient">
@@ -63,7 +63,7 @@
 	        	</div>
 	        	<div class="form-group" style='display:flex;margin:auto;width:fit-content;gap:10px'>
 					<label>Sex:*</label>
-					Male <form:radiobutton id="sex" path="sex" value="Male" />  
+					Male <form:radiobutton id="sex" path="sex" value="Male" checked="true" />  
         			Female <form:radiobutton id="sex" path="sex" value="Female" /> 
 	        	</div>
 	        	<input type="submit" value="Register"/>

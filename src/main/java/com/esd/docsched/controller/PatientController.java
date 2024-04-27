@@ -38,11 +38,11 @@ public class PatientController {
 	@GetMapping("/dashboard")
     public ModelAndView patientDashboard(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView(); 
-		if (SessionUtil.checkSessionActive(Role.PATIENT, request)) {
-			mv.addObject("errortype", "forbidden");
-			mv.setViewName("error");
-			return mv;
-		}
+//		if (SessionUtil.checkSessionActive(Role.PATIENT, request)) {
+//			mv.addObject("errortype", "forbidden");
+//			mv.setViewName("error");
+//			return mv;
+//		}
 		String tab = request.getParameter("dashboard");
 		
 		if (tab != null && tab.equals("book")) {

@@ -61,7 +61,6 @@ public class LoginController {
     	}
     	
     	if (user == null) {
-    		System.out.println("Null user");
     		ModelAndView mv = new ModelAndView("error");
     		mv.addObject("errortype", "invalidlogin");
     		return mv;
@@ -108,4 +107,9 @@ public class LoginController {
     	}
     	return "sign-up";
     } 
+	
+	@GetMapping("/forbidden") 
+	public String forbiddenUrl(){
+		return "forbidden";
+	}
 }

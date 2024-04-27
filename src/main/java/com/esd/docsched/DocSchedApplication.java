@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@SpringBootApplication(scanBasePackages = {"com.esd.docsched.controller", "com.esd.docsched.dao", "com.esd.docsched.config", "com.esd.docsched.validator"})
+@SpringBootApplication(scanBasePackages = {"com.esd.docsched.controller", "com.esd.docsched.dao", "com.esd.docsched.config", "com.esd.docsched.validator", "com.esd.docsched.authFilter"})
 @Controller
 public class DocSchedApplication {
 	
@@ -38,7 +38,7 @@ public class DocSchedApplication {
 				session.invalidate();
 			}
 		}
-        return viewName;
+        return "home-page";
 	}
 	
 	public static void main(String[] args) {
